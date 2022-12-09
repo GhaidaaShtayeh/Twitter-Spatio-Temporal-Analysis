@@ -47,7 +47,6 @@ async def _query(query:query):
   
 
 if __name__ == "__main__":
-    print("hello ")
     s = Search(using=connect_elasticsearch(), index="tweet") \
     .filter("match", text="Ringing") 
     response = s.execute()
