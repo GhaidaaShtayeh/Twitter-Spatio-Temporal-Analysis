@@ -21,7 +21,7 @@ class query:
     end_date: str = None
     coordinates: GeoPoint = None
     
-def genarete_query(new_query:query) -> dict:
+def genarete_query(new_query:query):
     base_query = {"query": {"bool": {"filter": [] ,"must": [] }}}
     if new_query.start_date and new_query.end_date:
         base_query["query"]["bool"]["filter"].append(
