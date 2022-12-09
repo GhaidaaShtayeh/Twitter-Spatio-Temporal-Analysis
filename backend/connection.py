@@ -5,9 +5,7 @@ import uvicorn
 from fastapi_elasticsearch import ElasticsearchAPIQueryBuilder
 from model.app_service import genarete_query
 from model.app_service import connect_elasticsearch
-from model.app_service import SerchQuery
-
-
+from model.app_service import query
 
 query_builder = ElasticsearchAPIQueryBuilder()
 
@@ -27,12 +25,12 @@ def _heath_check() -> dict:
     return response
   
 @app.post("/search") 
-async def _search(query:SerchQuery) -> dict:
+async def _search(query:query) -> dict:
     try:
         es_query = genarete_query(query)
-        print(es_query)
         es = connect_elasticsearch()
-        resp = es.search(index="some_index", body=es_query,size=100)
+        resp = es.search(index="tweet", body=es_query,size=100)
+        print(es_query)
         print("Got %d Hits:" % resp['hits']['total']['value'])
         for hit in resp['hits']['hits']:
             print("%(created_at)s id : %(id)s:  text : %(text)s" % hit["_source"])

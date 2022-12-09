@@ -15,40 +15,40 @@ class GeoPoint:
     radius: float =None
 
 @dataclass
-class SerchQuery:
+class query:
     text: str = None
     start_date: str = None
     end_date: str = None
     coordinates: GeoPoint = None
     
-def genarete_query(query:SerchQuery) -> dict:
+def genarete_query(new_query:query) -> dict:
     base_query = {"query": {"bool": {"filter": [] ,"must": [] }}}
-    if query.start_date and query.end_date:
+    if new_query.start_date and new_query.end_date:
         base_query["query"]["bool"]["filter"].append(
             {
                 "range": {
                     "created_at": {
-                        "gte": query.start_date,
-                        "lte": query.end_date,
+                        "gte": new_query.start_date,
+                        "lte": new_query.end_date,
                     }
                 }
             }
         )
-        if query.coordinates:
+        if new_query.coordinates:
             base_query["query"]["bool"]["filter"].append(
             {
                 "geo_distance": {
-                    "distance": f"{query.coordinates.radius}km",
+                    "distance": f"{new_query.coordinates.radius}km",
                     "coordinates": {
-                        "lat": query.coordinates.latitude,
-                        "lon": query.coordinates.longitude,
+                        "lat": new_query.coordinates.latitude,
+                        "lon": new_query.coordinates.longitude,
                         
                     }
                 }
             }
         )
-    if query.text:
-        base_query["query"]["bool"]["must"].append({"match": {"text": query.text}})
+    if new_query.text:
+        base_query["query"]["bool"]["must"].append({"match": {"text": new_query.text}})
     return base_query
 
 
