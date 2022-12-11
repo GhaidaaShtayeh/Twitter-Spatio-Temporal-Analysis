@@ -16,11 +16,48 @@ class GeoPoint:
 
 @dataclass
 class query:
-    text: str = None
+    keywords: str = None
     start_date: str = None
     end_date: str = None
     coordinates: GeoPoint = None
     
+    
+    
+def search_with_filters(obj: query):
+    
+    # Extract the attributes from the object
+    start_date = obj.start_date
+    end_date = obj.end_date
+    location = obj.coordinates
+    keywords = obj.keywords
+
+    # Build the Elasticsearch query
+    body = {
+        "query": {
+            "bool": {
+                "must": [
+                    # Add a range filter using the start and end dates
+                    {"range": {"created_at": {"gte": start_date, "lte": end_date}}},
+                    # Add a geo-point filter using the location
+                    {
+                    "geo_distance": {
+                    "distance": f"{location.radius}km",
+                    "coordinates": {
+                        "lat": location.latitude,
+                        "lon": location.longitude,                        
+                    }
+                    }
+                },
+                    # Add a text filter using the keywords
+                    {"match": {"text": keywords}}
+                ]
+            }
+        }
+    }
+    # Return the search results
+    print(body)
+    return body
+
 def genarete_query(new_query:query):
     base_query = {"query": {"bool": {"filter": [] ,"must": [] }}}
     if new_query.start_date and new_query.end_date:
@@ -47,8 +84,8 @@ def genarete_query(new_query:query):
                 }
             }
         )
-    if new_query.text:
-        base_query["query"]["bool"]["must"].append({"match": {"text": new_query.text}})
+    if new_query.keywords:
+        base_query["query"]["bool"]["must"].append({"match": {"text": new_query.keywords}})
     return base_query
 
 
