@@ -39,15 +39,7 @@ def search_with_filters(obj: query):
                     # Add a range filter using the start and end dates
                     {"range": {"created_at": {"gte": start_date, "lte": end_date}}},
                     # Add a geo-point filter using the location
-                    {
-                    "geo_distance": {
-                    "distance": f"{location.radius}km",
-                    "coordinates": {
-                        "lat": location.latitude,
-                        "lon": location.longitude,                        
-                    }
-                    }
-                },
+                    {"geo_distance": {"distance": f"{location.radius}km","coordinates": {"lat": location.latitude,"lon": location.longitude}}},
                     # Add a text filter using the keywords
                     {"match": {"text": keywords}}
                 ]

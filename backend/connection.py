@@ -51,7 +51,7 @@ async def _query(query:query):
 @app.post('/stream_data')
 async def stream_data(query:query):
     try:    
-        #prepare elastic search context
+        # Initialize Elasticsearch client
         es = connect_elasticsearch()
         #genarate a query that are applied a filters in the data
         es_query = search_with_filters(query)

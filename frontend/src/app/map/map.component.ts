@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import * as leaflet from 'leaflet';
 import 'heatmap.js';
 import {heatData} from "../heatData";
+import axios from 'axios';
 
 declare const HeatmapOverlay: any;
 @Component({
@@ -13,6 +14,7 @@ declare const HeatmapOverlay: any;
 
 export class MapComponent {
   private map: any;
+  public data: any[] = [];
 
   ngOnInit(): void {
     this.initMap();
@@ -61,4 +63,8 @@ export class MapComponent {
     //Adding heat layer to a map
     heatmapLayer.addTo(this.map);
   }
+
 }
+
+
+
