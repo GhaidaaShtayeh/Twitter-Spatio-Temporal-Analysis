@@ -24,30 +24,6 @@ def _heath_check() -> dict:
     }
     return response
   
-@app.post("/search") 
-async def _query(query:query):
-    try:
-        es = connect_elasticsearch()
-        es_query = search_with_filters(query)
-        resp = es.search(index="tweets",body={"query": {"match_all": {}}})
-        print("Got %d Hits:" % resp['hits']['total']['value'])
-        for hit in resp['hits']['hits']:
-            print("%(created_at)s id : %(id)s:  text : %(text)s" % hit["_source"])
-        response = {
-        "message": HTTPStatus.OK.phrase,
-        "status-code": HTTPStatus.OK,
-        "data": resp
-        }
-    except Exception as ex:
-        print(str(ex))
-        response = {
-        "message": HTTPStatus.BAD_REQUEST.phrase,
-        "status-code": HTTPStatus.BAD_REQUEST,
-        "data": "none"
-    }
-    finally:
-        return response
-    
 @app.post('/stream_data')
 async def stream_data(query:query):
     try:    
