@@ -8,6 +8,7 @@ from model.app_service import search_with_filters
 from model.app_service import connect_elasticsearch
 from model.app_service import query
 from elasticsearch_dsl import Search
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
@@ -15,6 +16,14 @@ app = FastAPI(
     description="..",
     version="0.1",
     )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def _heath_check() -> dict:
@@ -32,7 +41,7 @@ async def stream_data(query:query):
         #genarate a query that are applied a filters in the data
         es_query = search_with_filters(query)
         # Query Elasticsearch for data
-        data = es.search(index="tweets",body=es_query)
+        data = es.search(index="tweet",body=es_query)
         for hit in data['hits']['hits']:
                 print("%(created_at)s id : %(id)s:  text : %(text)s" % hit["_source"])
         # Stream the data out in chunks of 5 seconds

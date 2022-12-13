@@ -1646,7 +1646,14 @@
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
   "version" "7.0.11"
 
-"@types/leaflet@^1.9.0":
+"@types/leaflet.heat@^0.2.1":
+  "integrity" "sha512-NESIrQcnaT2gONYOUMfuppWdPDNkmH69qTa5F1kHCSh2WXno84YpOzJn/U+aGSNjUFRdVnRcxn1uxJn68/GNRA=="
+  "resolved" "https://registry.npmjs.org/@types/leaflet.heat/-/leaflet.heat-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.9.0":
   "integrity" "sha512-7LeOSj7EloC5UcyOMo+1kc3S1UT3MjJxwqsMT1d2PTyvQz53w0Y0oSSk9nwZnOZubCmBvpSNGceucxiq+ZPEUw=="
   "resolved" "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.0.tgz"
   "version" "1.9.0"
