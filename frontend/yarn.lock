@@ -1624,6 +1624,11 @@
   "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz"
   "version" "7946.0.10"
 
+"@types/geopoint@^1.0.1":
+  "integrity" "sha512-u0NMCW2hIxV970oUbyzfwi3aRiAghvUfbEtq3yDHoKgda67bUMsXl3Q7J6kKCFWbjZuQo6n+79IIT5mRTy6UlA=="
+  "resolved" "https://registry.npmjs.org/@types/geopoint/-/geopoint-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@types/http-proxy@^1.17.8":
   "integrity" "sha512-QsbSjA/fSk7xB+UXlCT3wHBy5ai9wOcNDWwZAtud+jXhwOM3l+EYZh8Lng4+/6n8uar0J7xILzqftJdJ/Wdfkw=="
   "resolved" "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.9.tgz"
