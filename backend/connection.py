@@ -41,13 +41,18 @@ async def stream_data(query:query):
         #genarate a query that are applied a filters in the data
         es_query = search_with_filters(query)
         # Query Elasticsearch for data
-        data = es.search(index="tweet",body=es_query)
-        for hit in data['hits']['hits']:
-                print("%(created_at)s id : %(id)s:  text : %(text)s" % hit["_source"])
+        res = es.search(index="tweet",body=es_query)
         # Stream the data out in chunks of 5 seconds
-        for chunk in data:
-            await asyncio.sleep(5)
-            return chunk
+        res = res["hits"]["hits"]
+        print(res)
+        keywords = ["id","text","created_at","coordinates"]
+        res = [{key:tweet["_source"][key] for key in keywords} for tweet in res]
+        return {
+        "message": HTTPStatus.OK.phrase,
+        "status-code": HTTPStatus.OK,
+        "data": res
+        }
+
         
     except Exception as ex:
         print(str(ex))

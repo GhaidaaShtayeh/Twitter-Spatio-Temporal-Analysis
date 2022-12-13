@@ -6,3 +6,4 @@ export class Query {
   end_date: string | null = null;
   coordinates: GeoPoint | null = null;
 }
+
