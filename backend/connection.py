@@ -1,21 +1,29 @@
+import asyncio
 from fastapi import FastAPI , Request
 from http import HTTPStatus
 from dataclasses import dataclass
+from fastapi import FastAPI, Response
 import uvicorn
-from fastapi_elasticsearch import ElasticsearchAPIQueryBuilder
-from model.app_service import genarete_query
+from model.app_service import search_with_filters
 from model.app_service import connect_elasticsearch
 from model.app_service import query
 from elasticsearch_dsl import Search
+from fastapi.middleware.cors import CORSMiddleware
 
-
-query_builder = ElasticsearchAPIQueryBuilder()
 
 app = FastAPI(
     title="IR API",
     description="..",
     version="0.1",
     )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def _heath_check() -> dict:
@@ -25,30 +33,29 @@ def _heath_check() -> dict:
     }
     return response
   
-@app.post("/search") 
-async def _query(query:query):
-    try:
-        es_query = genarete_query(query)
+@app.post('/stream_data')
+async def stream_data(query:query):
+    try:    
+        # Initialize Elasticsearch client
         es = connect_elasticsearch()
-        resp = es.search(index="tweet", body=es_query,size=100)
-        print("Got %d Hits:" % resp['hits']['total']['value'])
-        for hit in resp['hits']['hits']:
-            print("%(created_at)s id : %(id)s:  text : %(text)s" % hit["_source"])
-        response = {
+        #genarate a query that are applied a filters in the data
+        es_query = search_with_filters(query)
+        # Query Elasticsearch for data
+        res = es.search(index="tweet",body=es_query)
+        # Stream the data out in chunks of 5 seconds
+        res = res["hits"]["hits"]
+        print(res)
+        keywords = ["id","text","created_at","coordinates"]
+        res = [{key:tweet["_source"][key] for key in keywords} for tweet in res]
+        return {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
-        "data": resp
+        "data": res
         }
+
+        
     except Exception as ex:
         print(str(ex))
-    finally:
-        return response
-
-  
-
+    
 if __name__ == "__main__":
-    s = Search(using=connect_elasticsearch(), index="tweet") \
-    .filter("match", text="Ringing") 
-    response = s.execute()
-    print("Got %d Hits:" % response['hits']['total']['value'])
     uvicorn.run("connection:app", host="0.0.0.0", port=5000, reload=True)
