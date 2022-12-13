@@ -1624,6 +1624,11 @@
   "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz"
   "version" "7946.0.10"
 
+"@types/geopoint@^1.0.1":
+  "integrity" "sha512-u0NMCW2hIxV970oUbyzfwi3aRiAghvUfbEtq3yDHoKgda67bUMsXl3Q7J6kKCFWbjZuQo6n+79IIT5mRTy6UlA=="
+  "resolved" "https://registry.npmjs.org/@types/geopoint/-/geopoint-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@types/http-proxy@^1.17.8":
   "integrity" "sha512-QsbSjA/fSk7xB+UXlCT3wHBy5ai9wOcNDWwZAtud+jXhwOM3l+EYZh8Lng4+/6n8uar0J7xILzqftJdJ/Wdfkw=="
   "resolved" "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.9.tgz"
@@ -1641,7 +1646,14 @@
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
   "version" "7.0.11"
 
-"@types/leaflet@^1.9.0":
+"@types/leaflet.heat@^0.2.1":
+  "integrity" "sha512-NESIrQcnaT2gONYOUMfuppWdPDNkmH69qTa5F1kHCSh2WXno84YpOzJn/U+aGSNjUFRdVnRcxn1uxJn68/GNRA=="
+  "resolved" "https://registry.npmjs.org/@types/leaflet.heat/-/leaflet.heat-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.9.0":
   "integrity" "sha512-7LeOSj7EloC5UcyOMo+1kc3S1UT3MjJxwqsMT1d2PTyvQz53w0Y0oSSk9nwZnOZubCmBvpSNGceucxiq+ZPEUw=="
   "resolved" "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.0.tgz"
   "version" "1.9.0"
@@ -3433,6 +3445,11 @@
   "resolved" "https://registry.npmjs.org/hdr-histogram-percentiles-obj/-/hdr-histogram-percentiles-obj-3.0.0.tgz"
   "version" "3.0.0"
 
+"heatmap.js@*":
+  "integrity" "sha512-CG2gYFP5Cv9IQCXEg3ZRxnJDyAilhWnQlAuHYGuWVzv6mFtQelS1bR9iN80IyDmFECbFPbg6I0LR5uAFHgCthw=="
+  "resolved" "https://registry.npmjs.org/heatmap.js/-/heatmap.js-2.0.5.tgz"
+  "version" "2.0.5"
+
 "hosted-git-info@^5.0.0":
   "integrity" "sha512-xIcQYMnhcx2Nr4JTjsFmwwnr9vldugPy9uVm0o87bjqqWMv9GaqsTeT+i99wTl0mk1uLxJtHxLb8kymqTENQsw=="
   "resolved" "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-5.2.1.tgz"
@@ -3898,6 +3915,11 @@
   "resolved" "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz"
   "version" "1.0.0"
 
+"json@^11.0.0":
+  "integrity" "sha512-N/ITv3Yw9Za8cGxuQqSqrq6RHnlaHWZkAFavcfpH/R52522c26EbihMxnY7A1chxfXJ4d+cEFIsyTgfi9GihrA=="
+  "resolved" "https://registry.npmjs.org/json/-/json-11.0.0.tgz"
+  "version" "11.0.0"
+
 "json5@^2.1.2", "json5@^2.2.1":
   "integrity" "sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA=="
   "resolved" "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
@@ -4003,7 +4025,15 @@
   "resolved" "https://registry.npmjs.org/klona/-/klona-2.0.5.tgz"
   "version" "2.0.5"
 
-"leaflet@^1.9.3":
+"leaflet-heatmap@^1.0.0":
+  "integrity" "sha512-WP/emZYwjWaEnWMcE2dftuJvtjp53zmJcHtVTHUqPN7AQEowHxDTLH5j1BJjE4uL1K5dJclBLX4oLpnOGS/qTw=="
+  "resolved" "https://registry.npmjs.org/leaflet-heatmap/-/leaflet-heatmap-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "heatmap.js" "*"
+    "leaflet" "*"
+
+"leaflet@*", "leaflet@^1.9.3":
   "integrity" "sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ=="
   "resolved" "https://registry.npmjs.org/leaflet/-/leaflet-1.9.3.tgz"
   "version" "1.9.3"
