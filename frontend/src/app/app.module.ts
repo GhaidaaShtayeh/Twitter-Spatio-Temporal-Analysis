@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { StreamDataComponent } from './stream-data/stream-data.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,8 +12,9 @@ import { StreamDataComponent } from './stream-data/stream-data.component';
     StreamDataComponent
   ],
   imports: [
-    BrowserModule
-  ],
+    BrowserModule,
+    HttpClientModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

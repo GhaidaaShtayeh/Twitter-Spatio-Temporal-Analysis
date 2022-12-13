@@ -1624,6 +1624,11 @@
   "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.10.tgz"
   "version" "7946.0.10"
 
+"@types/geopoint@^1.0.1":
+  "integrity" "sha512-u0NMCW2hIxV970oUbyzfwi3aRiAghvUfbEtq3yDHoKgda67bUMsXl3Q7J6kKCFWbjZuQo6n+79IIT5mRTy6UlA=="
+  "resolved" "https://registry.npmjs.org/@types/geopoint/-/geopoint-1.0.1.tgz"
+  "version" "1.0.1"
+
 "@types/http-proxy@^1.17.8":
   "integrity" "sha512-QsbSjA/fSk7xB+UXlCT3wHBy5ai9wOcNDWwZAtud+jXhwOM3l+EYZh8Lng4+/6n8uar0J7xILzqftJdJ/Wdfkw=="
   "resolved" "https://registry.npmjs.org/@types/http-proxy/-/http-proxy-1.17.9.tgz"
@@ -1641,7 +1646,14 @@
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
   "version" "7.0.11"
 
-"@types/leaflet@^1.9.0":
+"@types/leaflet.heat@^0.2.1":
+  "integrity" "sha512-NESIrQcnaT2gONYOUMfuppWdPDNkmH69qTa5F1kHCSh2WXno84YpOzJn/U+aGSNjUFRdVnRcxn1uxJn68/GNRA=="
+  "resolved" "https://registry.npmjs.org/@types/leaflet.heat/-/leaflet.heat-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "@types/leaflet" "*"
+
+"@types/leaflet@*", "@types/leaflet@^1.9.0":
   "integrity" "sha512-7LeOSj7EloC5UcyOMo+1kc3S1UT3MjJxwqsMT1d2PTyvQz53w0Y0oSSk9nwZnOZubCmBvpSNGceucxiq+ZPEUw=="
   "resolved" "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.9.0.tgz"
   "version" "1.9.0"
