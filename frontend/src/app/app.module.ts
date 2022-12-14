@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { StreamDataComponent } from './stream-data/stream-data.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,7 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
