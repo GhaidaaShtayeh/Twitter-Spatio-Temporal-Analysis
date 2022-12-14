@@ -4,7 +4,7 @@ import * as leaflet from 'leaflet';
 import 'heatmap.js';
 import 'leaflet.heat';
 import { GeoPoint } from '../model/geo-point';
-import { StreamDataService } from '../stream-data-service.service';
+import { StreamDataService } from '../service/stream-data-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare const HeatmapOverlay: any;
