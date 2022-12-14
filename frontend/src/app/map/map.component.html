@@ -1,5 +1,16 @@
+<body>
+  <form class="form" [formGroup]="queryForm" style="z-index: 1000 !important;">
+    <input type="text" id="keywords" formControlName="keywords" placeholder="keyword">
+  <input type="text" id="start_date" formControlName="start_date" placeholder="start_date">
+  <input type="text" id="end_date" formControlName="end_date" placeholder="end_date">
+  <input type="number" id="lat" formControlName="lat" placeholder="lat">
+  <input type="number" id="lon" formControlName="lon" placeholder="lon">
+  <button (click)="onSave()" type="submit" class="main-btn"> Save</button>
+</form>
+
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
     </div>
   </div>
+</body>
