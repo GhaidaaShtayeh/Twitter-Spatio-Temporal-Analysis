@@ -57,12 +57,12 @@ async def stream_data(query:query):
         # Extract data from the response
         res = res["hits"]["hits"]
         # Define a list of keywords to be extracted from the search results
-        print(res)
         # Extract the keywords for each search result
         keywords = ["id","text","created_at","coordinates"]
         # Extract the keywords for each search result
         res = [{key:tweet["_source"][key] for key in keywords} for tweet in res]
         # Return the search results
+        print(len(res))
         return {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,

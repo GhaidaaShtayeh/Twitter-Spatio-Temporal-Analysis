@@ -8,8 +8,8 @@ from elasticsearch import Elasticsearch
 @dataclass
 class GeoPoint:
     # Define two fields for the GeoPoint class: latitude and longitude, both of which are floating-point numbers
-    latitude:float = None
-    longitude:float = None
+    latitude = None
+    longitude = None
 @dataclass
 class query:
     # Define four fields for the query class: keywords, start_date, end_date, and coordinates
@@ -19,8 +19,7 @@ class query:
     start_date: str = None
     end_date: str = None
     coordinates: GeoPoint = None
-   
-   
+    
    # Define a function called connect_elasticsearch() that initializes an Elasticsearch client and attempts to connect to it 
 def connect_elasticsearch():
     # Initialize the Elasticsearch client to None
@@ -79,31 +78,35 @@ def create_index(es_object, index_name):
         print(str(ex))
     finally:
         return created
-
-    
+   
 def search_with_filters(obj: query):
-    
     # Extract the attributes from the object
     start_date = obj.start_date
     end_date = obj.end_date
     location = obj.coordinates
     keywords = obj.keywords
-
     # Build the Elasticsearch query
     body = {
         "query": {
             "bool": {
-                "must": [
-                    # Add a range filter using the start and end dates
-                    {"range": {"created_at": {"gte": start_date, "lte": end_date}}},
-                    # Add a geo-point filter using the location
-                    {"geo_distance": {"distance": "5000000000000000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}},
-                    # Add a text filter using the keywords
-                    {"match": {"text": keywords}}
-                ]
+                "must": [],
+                "should": [],
             }
         }
     }
+    
+    # Add a text filter using the keywords if keywords is not None
+    if keywords is not None:
+        body["query"]["bool"]["must"].append({"match": {"text": keywords}})
+
+    # Add a range filter using the start and end dates if both are not None
+    if start_date is not None and end_date is not None and start_date != "" and end_date != "":
+        body["query"]["bool"]["should"].append({"range": {"created_at": {"gte": start_date, "lte": end_date}}})
+
+    # Add a geo-point filter using the location if both latitude and longitude are not None
+    if location is not None and location.latitude is not None and location.longitude is not None and  location.latitude  != "" and location.longitude != "":
+        body["query"]["bool"]["should"].append({"geo_distance": {"distance": "500000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}})
+
     # Return the search results
     print(body)
     return body
