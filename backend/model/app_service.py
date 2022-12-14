@@ -19,8 +19,7 @@ class query:
     start_date: str = None
     end_date: str = None
     coordinates: GeoPoint = None
-   
-   
+    
    # Define a function called connect_elasticsearch() that initializes an Elasticsearch client and attempts to connect to it 
 def connect_elasticsearch():
     # Initialize the Elasticsearch client to None
@@ -79,8 +78,7 @@ def create_index(es_object, index_name):
         print(str(ex))
     finally:
         return created
-
-    
+   
 def search_with_filters(obj: query):
     
     # Extract the attributes from the object
@@ -90,20 +88,26 @@ def search_with_filters(obj: query):
     keywords = obj.keywords
 
     # Build the Elasticsearch query
+    # Build the Elasticsearch query
+    # Build the Elasticsearch query
     body = {
-        "query": {
-            "bool": {
-                "must": [
-                    # Add a range filter using the start and end dates
-                    {"range": {"created_at": {"gte": start_date, "lte": end_date}}},
-                    # Add a geo-point filter using the location
-                    {"geo_distance": {"distance": "5000000000000000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}},
-                    # Add a text filter using the keywords
-                    {"match": {"text": keywords}}
-                ]
+    "query": {
+        "bool": {
+            "must": [
+                # Add a text filter using the keywords
+                {"match": {"text": keywords}}
+            ],
+            "should": [
+                # Add a range filter using the start and end dates
+                {"range": {"created_at": {"gte": start_date, "lte": end_date}}},
+                # Add a geo-point filter using the location
+                {"geo_distance": {"distance": "500000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}},
+                   ]
+                }
             }
         }
-    }
+
+
     # Return the search results
     print(body)
     return body
