@@ -56,6 +56,7 @@ async def stream_data(query:query):
         res = es.search(index="tweet",body=es_query)
         # Extract data from the response
         res = res["hits"]["hits"]
+        print(res)
         # Define a list of keywords to be extracted from the search results
         # Extract the keywords for each search result
         keywords = ["id","text","created_at","coordinates"]
