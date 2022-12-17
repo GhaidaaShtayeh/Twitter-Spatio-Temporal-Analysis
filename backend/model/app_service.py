@@ -36,6 +36,7 @@ def connect_elasticsearch():
     # Return the Elasticsearch client object
     return _es
 
+    # Define a function called create_index() that initializes an Elasticsearch Index
 def create_index(es_object, index_name): 
     # Flag to indicate whether the index was created
     created = False
