@@ -1,11 +1,15 @@
+<head>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+</head>
 <body>
   <form class="form" [formGroup]="queryForm" style="z-index: 1000 !important;">
     <input type="text" id="keywords" formControlName="keywords" placeholder="keyword">
-  <input type="text" id="start_date" formControlName="start_date" placeholder="start_date">
-  <input type="text" id="end_date" formControlName="end_date" placeholder="end_date">
-  <input type="number" id="lat" formControlName="lat" placeholder="lat">
-  <input type="number" id="lon" formControlName="lon" placeholder="lon">
-  <button (click)="onSave()" type="submit" class="main-btn"> Save</button>
+    <input id="startdatepicker" placeholder="start_date">
+    <input id="enddatepicker" placeholder="end_date">
+    <input type="number" id="lat" formControlName="lat" placeholder="lat">
+    <input type="number" id="lon" formControlName="lon" placeholder="lon">
+    <button (click)="onSave()" type="submit" class="main-btn"> Save</button>
 </form>
 
 <div class="map-container">
@@ -14,3 +18,4 @@
     </div>
   </div>
 </body>
+<script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
