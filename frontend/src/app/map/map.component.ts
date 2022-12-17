@@ -93,9 +93,10 @@ export class MapComponent implements OnInit {
         return el['coordinates'] != null;
       });
 
-
+      console.log(this.tweets)
       // Extract coordinates from data
      var new_data2 =this.tweets.map(function (p:any)  {
+      console.log(p)
       return leaflet.latLng(p["coordinates"]["coordinates"][1], p["coordinates"]["coordinates"][0]);
       });
 

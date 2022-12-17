@@ -10,6 +10,7 @@ class GeoPoint:
     # Define two fields for the GeoPoint class: latitude and longitude, both of which are floating-point numbers
     latitude = None
     longitude = None
+    
 @dataclass
 class query:
     # Define four fields for the query class: keywords, start_date, end_date, and coordinates
@@ -89,8 +90,7 @@ def search_with_filters(obj: query):
     body = {
         "query": {
             "bool": {
-                "must": [],
-                "should": [],
+                "must": []
             }
         }
     }
@@ -101,12 +101,11 @@ def search_with_filters(obj: query):
 
     # Add a range filter using the start and end dates if both are not None
     if start_date is not None and end_date is not None and start_date != "" and end_date != "":
-        body["query"]["bool"]["should"].append({"range": {"created_at": {"gte": start_date, "lte": end_date}}})
+        body["query"]["bool"]["must"].append({"range": {"created_at": {"gte": start_date, "lte": end_date}}})
 
     # Add a geo-point filter using the location if both latitude and longitude are not None
     if location is not None and location.latitude is not None and location.longitude is not None and  location.latitude  != "" and location.longitude != "":
-        body["query"]["bool"]["should"].append({"geo_distance": {"distance": "500000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}})
+        body["query"]["bool"]["must"].append({"geo_distance": {"distance": "500000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}})
 
     # Return the search results
-    print(body)
     return body
