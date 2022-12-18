@@ -7,15 +7,14 @@
     <input type="text" id="keywords" formControlName="keywords" placeholder="keyword">
     <input id="startdatepicker" placeholder="start_date">
     <input id="enddatepicker" placeholder="end_date">
-    <input type="number" id="lat" formControlName="lat" placeholder="lat">
-    <input type="number" id="lon" formControlName="lon" placeholder="lon">
     <button (click)="onSave()" type="submit" class="main-btn"> Save</button>
 </form>
 
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
-    </div>
-  </div>
+</div>
+</div>
+
 </body>
 <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>

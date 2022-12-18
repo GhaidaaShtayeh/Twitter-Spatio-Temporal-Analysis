@@ -6,10 +6,10 @@ import 'leaflet.heat';
 import { GeoPoint } from '../model/geo-point';
 import { StreamDataService } from '../service/stream-data-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import 'leaflet-area-select';
+var SelectArea = require('leaflet-area-select');
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker';
-
+import 'leaflet-draw'
 
 @Component({
   selector: 'app-map',
@@ -19,6 +19,7 @@ import 'jquery-ui/ui/widgets/datepicker';
 
 // Create a new class for the map component that implements the OnInit interface
 export class MapComponent implements OnInit {
+
   // Declare a variable for the map and initialize it as null
   private map: any = null;
 
@@ -32,7 +33,7 @@ export class MapComponent implements OnInit {
   // Declare a variable for the heatmap data
   public data: any[] = [];
 
-  private areaSelect: any;
+
 
   // Declare a variable for the form group using the FormBuilder
   queryForm: FormGroup = this._formbuilder.group({
@@ -69,13 +70,7 @@ export class MapComponent implements OnInit {
 
   // Create a method to handle the form submission
   public onSave(){
-  // Set the query object properties from the form values
-
-
   this.query.keywords = this.queryForm.get('keywords')?.value;
-  this.query.coordinates = new GeoPoint
-  this.query.coordinates!.latitude = this.queryForm.get('lat')?.value;
-  this.query.coordinates!.longitude = this.queryForm.get('lon')?.value;
     this.streamDataService.streamData(this.query)
       .subscribe(data => {
         this.tweets = data["data"];
@@ -92,6 +87,7 @@ export class MapComponent implements OnInit {
       zoom: 3,
 
     });
+
   //this.areaSelect = leaflet.areaSelect();
 
     // Add the area select layer to the map
@@ -106,6 +102,50 @@ export class MapComponent implements OnInit {
 
     // Adding tiles to the map
     tiles.addTo(this.map);
+    var drawnItems = leaflet.featureGroup();
+    this.map.addLayer(drawnItems);
+    var drawControl = new leaflet.Control.Draw({
+      draw: {
+          circle: {
+            shapeOptions: {
+              color: '#f357a1',
+              fillColor: '#f357a1',
+              fillOpacity: 0.2,
+
+            },
+          },
+          marker: false,
+          polyline: false,
+          circlemarker: false,
+          rectangle: false,
+          polygon: false
+
+      },
+      edit : {
+        featureGroup : drawnItems,
+        remove : true,
+        edit : false
+      }
+
+  })
+  this.map.addControl(drawControl)
+
+  var current = this
+  this.map.on('draw:created', function (e) {
+    var type = e.layerType,
+        layer = e.layer;
+
+    if (type === 'circle') {
+        var radius = layer.getRadius();
+        var coordinates = layer.toGeoJSON().geometry.coordinates;
+        current.query.coordinates = new GeoPoint
+        current.query.coordinates!.latitude = coordinates[1];
+        current.query.coordinates!.longitude = coordinates[0];
+        current.query.coordinates.radius = radius/1000;
+    }
+
+    current.map.addLayer(layer);
+  });
 
     }
 
@@ -181,7 +221,12 @@ export class MapComponent implements OnInit {
     }
 
 
+
+
+
   }
+
+
 
 
 
