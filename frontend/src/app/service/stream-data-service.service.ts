@@ -12,4 +12,7 @@ export class StreamDataService {
     console.log(query)
       return this.http.post('http://localhost:5000/stream_data', query)
   }
+  allData(){
+      return this.http.get('http://localhost:5000/all_data')
+  }
 }
