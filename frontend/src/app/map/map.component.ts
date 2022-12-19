@@ -162,9 +162,11 @@ export class MapComponent implements OnInit {
 
       console.log(this.tweets)
 
+      const totalScore = this.tweets.reduce((prev, curr) => prev + curr.score, 0);
+
       // Extract coordinates from data
      var new_data2 =this.tweets.map(function (p:any)  {
-      return leaflet.latLng(p["coordinates"]["coordinates"][1], p["coordinates"]["coordinates"][0]);
+      return leaflet.latLng(p["coordinates"]["coordinates"][1], p["coordinates"]["coordinates"][0],p["score"]/totalScore);
       });
       // Add heatmap layer
       this.heatLayer = leaflet.heatLayer(
@@ -232,4 +234,8 @@ export class MapComponent implements OnInit {
 
 
 
+
+function sum(arg0: any) {
+  throw new Error('Function not implemented.');
+}
 
