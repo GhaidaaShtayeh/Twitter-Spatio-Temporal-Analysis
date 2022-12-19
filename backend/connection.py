@@ -1,10 +1,12 @@
 from http.client import HTTPException
+from threading import Thread
 from elasticsearch import helpers
 from fastapi import FastAPI, Request
 from http import HTTPStatus
 import uvicorn
 from model.app_service import read_file
 from model.app_service import create_index
+from model.app_service import upload_data
 from model.app_service import search_with_filters
 from model.app_service import connect_elasticsearch
 from model.app_service import query
@@ -76,13 +78,15 @@ async def stream_data(query:query):
 
 
     
-     
+
 if __name__ == "__main__":
     # Run the uvicorn server, using the "connection" module and the "app" object within it
     # Listen on all network interfaces (0.0.0.0) on port 5000
     # Enable automatic reloading on file changes
     es_object = connect_elasticsearch()
-    create_index(es_object, "tweets_test5")
-    helpers.bulk(es_object,read_file("D:\\tweets\\boulder_flood_geolocated_tweets.json"),index = "tweets_test5")
-    print ("data added successfully into index name : " , "tweets_test5")    
+    create_index(es_object, "index_name2")
+    tweet_data = read_file("D:\\tweets\\boulder_flood_geolocated_tweets.json")
+    data_thread = Thread(target= upload_data , args=(es_object, "index_name2", tweet_data))
+    data_thread.start()
     uvicorn.run("connection:app", host="0.0.0.0", port=5000, reload=True)
+

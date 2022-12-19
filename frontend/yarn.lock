@@ -4239,6 +4239,13 @@
   "resolved" "https://registry.npmjs.org/leaflet-draw/-/leaflet-draw-1.0.4.tgz"
   "version" "1.0.4"
 
+"leaflet-easybutton@^2.4.0":
+  "integrity" "sha512-O+qsQq4zTF6ds8VClnytobTH/MKalctlPpiA8L+bNKHP14J3lgJpvEd/jSpq9mHTI6qOzRAvbQX6wS6qNwThvg=="
+  "resolved" "https://registry.npmjs.org/leaflet-easybutton/-/leaflet-easybutton-2.4.0.tgz"
+  "version" "2.4.0"
+  dependencies:
+    "leaflet" "^1.0.1"
+
 "leaflet-heatmap@^1.0.0":
   "integrity" "sha512-WP/emZYwjWaEnWMcE2dftuJvtjp53zmJcHtVTHUqPN7AQEowHxDTLH5j1BJjE4uL1K5dJclBLX4oLpnOGS/qTw=="
   "resolved" "https://registry.npmjs.org/leaflet-heatmap/-/leaflet-heatmap-1.0.0.tgz"
@@ -4252,7 +4259,7 @@
   "resolved" "https://registry.npmjs.org/leaflet-measure-path/-/leaflet-measure-path-1.5.0.tgz"
   "version" "1.5.0"
 
-"leaflet@*", "leaflet@^1.2.0", "leaflet@^1.6.0", "leaflet@^1.9.3":
+"leaflet@*", "leaflet@^1.0.1", "leaflet@^1.2.0", "leaflet@^1.6.0", "leaflet@^1.9.3":
   "integrity" "sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ=="
   "resolved" "https://registry.npmjs.org/leaflet/-/leaflet-1.9.3.tgz"
   "version" "1.9.3"
