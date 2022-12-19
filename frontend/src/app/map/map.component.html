@@ -1,14 +1,23 @@
-<head>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-</head>
-<body>
-  <form class="form" [formGroup]="queryForm" style="z-index: 1000 !important;">
-    <input type="text" id="keywords" formControlName="keywords" placeholder="keyword">
-    <input id="startdatepicker" placeholder="start_date">
-    <input id="enddatepicker" placeholder="end_date">
-    <button (click)="onSave()" type="submit" class="main-btn"> Save</button>
-</form>
+
+<!--make a form floating above the map div using z-index and boot strap the form contains the name and the age values to collect  -->
+<div class="form-container floating transperant-back " id="form-container" >
+  <form class="form" id="form" action="javascript:void(0);"  >
+      <div class="form-group">
+          <label for="keyword">Keyword</label>
+          <input type="text" class="form-control" id="keyword" placeholder="Enter Keyword">
+      </div>
+      <div class="form-group">
+          <label for="start_date">Start Date</label>
+          <input type = "date" class="form-control" id="startdatepicker" placeholder="start_date">
+
+        </div>
+        <div class="form-group">
+          <label for="end_date">End Date</label>
+          <input type = "date" class="form-control" id="enddatepicker" placeholder="end_date">
+        </div>
+      <button type="submit" class="btn btn-primary" (click)="onSave()" >Submit</button>
+  </form>
+</div>
 
 <div class="map-container">
     <div class="map-frame">
@@ -16,5 +25,3 @@
 </div>
 </div>
 
-</body>
-<script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>

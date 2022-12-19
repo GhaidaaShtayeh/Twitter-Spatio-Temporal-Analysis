@@ -9,7 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 var SelectArea = require('leaflet-area-select');
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker';
-import 'leaflet-draw'
+import 'leaflet-draw';
+import { ViewChild, ElementRef } from '@angular/core';
+import { Map } from 'leaflet';
+import "leaflet-easybutton"
 
 @Component({
   selector: 'app-map',
@@ -19,6 +22,10 @@ import 'leaflet-draw'
 
 // Create a new class for the map component that implements the OnInit interface
 export class MapComponent implements OnInit {
+
+  @ViewChild('modalContainer') modalContainer: ElementRef;
+  showModal = false; // Initialize showModal to false
+  hideModal = true ;
 
   // Declare a variable for the map and initialize it as null
   private map: any = null;
@@ -37,7 +44,7 @@ export class MapComponent implements OnInit {
 
   // Declare a variable for the form group using the FormBuilder
   queryForm: FormGroup = this._formbuilder.group({
-  keywords: ['', Validators.required],
+  keywords: [''],
   start_date: [''],
   end_date: [''],
   lat: [''],
@@ -49,32 +56,32 @@ export class MapComponent implements OnInit {
 
   // Implement the ngOnInit method to initialize the map when the component is loaded
   ngOnInit(): void {
-    $('#startdatepicker').datepicker({
-      theme: 'base',
-      onSelect: (date) => {
-        const newDate = new Date(date);
-        this.query.start_date = newDate.toISOString();
-      }
-    });
-    $('#enddatepicker').datepicker({
-      theme: 'base',
-      onSelect: (date) => {
-        const newDate = new Date(date);
-        this.query.end_date = newDate.toISOString();
-      },
-    });
   this.initMap();
   this.mapClicked();
+  this.searchButton();
 
   }
 
   // Create a method to handle the form submission
   public onSave(){
-  this.query.keywords = this.queryForm.get('keywords')?.value;
-    this.streamDataService.streamData(this.query)
+   this.query.keywords = $("#keyword").val()
+   this.query.start_date = $("#startdatepicker").val()
+   this.query.end_date = $("#enddatepicker").val()
+   console.log(this.query)
+   if(this.query.keywords == ''){
+    this.query.keywords = null
+   }
+   if(this.query.start_date == ''){
+    this.query.start_date = null
+   }
+   if(this.query.end_date == ''){
+    this.query.end_date = null
+   }
+     this.streamDataService.streamData(this.query)
       .subscribe(data => {
         this.tweets = data["data"];
         this.initHeatMap()
+        $("#form-container").css("display","none")
       });
   }
 
@@ -145,7 +152,11 @@ export class MapComponent implements OnInit {
     }
 
     current.map.addLayer(layer);
-  });
+    current.streamDataService.streamData(current.query).subscribe(data => {
+      current.tweets = data["data"];
+      current.initHeatMap()
+    })
+        });
 
     }
 
@@ -223,9 +234,22 @@ export class MapComponent implements OnInit {
     }
 
 
+    updateModalPosition() {
+      const mapBounds = this.map.getBounds();
+      const topLeft = this.map.latLngToContainerPoint(mapBounds.getNorthWest());
+      this.modalContainer.nativeElement.style.top = `${topLeft.y}px`;
+      this.modalContainer.nativeElement.style.left = `${topLeft.x}px`;
+    }
 
-
-
+    searchButton(){
+      leaflet.easyButton("fa fa-search",function(button,map){
+        if($("#form-container").is(":visible")){
+          $("#form-container").hide()
+        }else{
+            $("#form-container").show()
+        }
+      }).addTo(this.map)
+    }
   }
 
 
@@ -235,7 +259,5 @@ export class MapComponent implements OnInit {
 
 
 
-function sum(arg0: any) {
-  throw new Error('Function not implemented.');
-}
+
 
