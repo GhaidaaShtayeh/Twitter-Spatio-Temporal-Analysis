@@ -2,10 +2,10 @@ from dataclasses import dataclass
 import datetime
 from http import HTTPStatus
 import json
-from pydoc import Helper
+import time
 from fastapi import FastAPI , Request
 from http import HTTPStatus
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch,helpers
 
 # Use the dataclass decorator to define two classes: GeoPoint and query
 @dataclass
@@ -74,6 +74,8 @@ def create_index(es_object, index_name):
     }
     
     try:
+        if es_object.indices.exists(index=index_name):
+            es_object.indices.delete(index=index_name)
         # Check if the index already exists
         if not es_object.indices.exists(index=index_name):
             # If the index doesn't exist, create it
@@ -84,10 +86,12 @@ def create_index(es_object, index_name):
         print(str(ex))
     finally:
         return created
+    
 #open file function in order to read a JSON file and save it into list
 def read_file(file_name):
     with open(file_name,encoding="utf8") as f:
         while(True):
+            time.sleep(0.01)
             line = f.readline()
             if not line:
                 break
@@ -95,7 +99,11 @@ def read_file(file_name):
             line['created_at'] = datetime.datetime.strptime(line['created_at'], '%a %b %d %H:%M:%S %z %Y').isoformat()
             #cleare the print
             yield line
-            
+
+def upload_data(es_object, index_name, data):
+    # Upload the data to Elasticsearch
+    print(next(data))
+    helpers.bulk(es_object,data,index=index_name)
        
 def search_with_filters(obj: query):
     # Extract the attributes from the object
