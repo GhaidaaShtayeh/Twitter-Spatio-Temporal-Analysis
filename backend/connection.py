@@ -59,7 +59,6 @@ async def stream_data(query:query):
         # Query Elasticsearch for data
         try:    
             res = es.search(index="tweet",body=es_query , size = 10000)
-            print(res)
             # Extract data from the response
             res = res["hits"]["hits"]
             # Define a list of keywords to be extracted from the search results
