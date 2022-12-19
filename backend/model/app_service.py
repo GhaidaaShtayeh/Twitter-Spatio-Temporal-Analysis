@@ -1,5 +1,8 @@
 from dataclasses import dataclass
+import datetime
 from http import HTTPStatus
+import json
+from pydoc import Helper
 from fastapi import FastAPI , Request
 from http import HTTPStatus
 from elasticsearch import Elasticsearch
@@ -8,8 +11,9 @@ from elasticsearch import Elasticsearch
 @dataclass
 class GeoPoint:
     # Define two fields for the GeoPoint class: latitude and longitude, both of which are floating-point numbers
-    latitude = None
-    longitude = None
+    latitude :float= None
+    longitude :float= None
+    radius :float=  None
     
 @dataclass
 class query:
@@ -80,7 +84,19 @@ def create_index(es_object, index_name):
         print(str(ex))
     finally:
         return created
-   
+#open file function in order to read a JSON file and save it into list
+def read_file(file_name):
+    with open(file_name,encoding="utf8") as f:
+        while(True):
+            line = f.readline()
+            if not line:
+                break
+            line = json.loads(line)
+            line['created_at'] = datetime.datetime.strptime(line['created_at'], '%a %b %d %H:%M:%S %z %Y').isoformat()
+            #cleare the print
+            yield line
+            
+       
 def search_with_filters(obj: query):
     # Extract the attributes from the object
     start_date = obj.start_date
@@ -91,7 +107,8 @@ def search_with_filters(obj: query):
     body = {
         "query": {
             "bool": {
-                "must": []
+                "must": [],
+                "filter": [],
             }
         }
     }
@@ -102,11 +119,11 @@ def search_with_filters(obj: query):
 
     # Add a range filter using the start and end dates if both are not None
     if start_date is not None and end_date is not None and start_date != "" and end_date != "":
-        body["query"]["bool"]["must"].append({"range": {"created_at": {"gte": start_date, "lte": end_date}}})
+        body["query"]["bool"]["filter"].append({"range": {"created_at": {"gte": start_date, "lte": end_date}}})
 
     # Add a geo-point filter using the location if both latitude and longitude are not None
     if location is not None and location.latitude is not None and location.longitude is not None and  location.latitude  != "" and location.longitude != "":
-        body["query"]["bool"]["must"].append({"geo_distance": {"distance": "500000km","coordinates": {"lat": location.latitude,"lon": location.longitude}}})
+        body["query"]["bool"]["filter"].append({"geo_distance": {"distance": f"{location.radius}km","coordinates": {"lat": location.latitude,"lon": location.longitude}}})
 
     # Return the search results
     return body
