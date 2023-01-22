@@ -18,8 +18,8 @@ The web app communicates with ES and serves client requests using a Python-based
 The web app will be available at http://localhost:4200/, and the server will be available at http://localhost:8000/.
 
 ## Built With
- - Angular - The web framework used for the front-end
- - Leaflet - The JavaScript library used for displaying maps
- - Python - The programming language used for the back-end
- - astAPI - The web framework used for building the server
- - Elasticsearch - The data storage and querying system used
+ - [Angular](https://angular.io/) - The web framework used for the front-end
+ - [Leaflet](https://leafletjs.com/) - The JavaScript library used for displaying maps
+ - [Python](https://www.python.org/) - The programming language used for the back-end
+ - [FastAPI](https://fastapi.tiangolo.com/) - The web framework used for building the server
+ - [Elasticsearch](https://www.elastic.co/) - The data storage and querying system used
