@@ -1,5 +1,5 @@
 # Twitter Spatio-temporal Analysis
-This project is aimed at conducting a spatio-temporal analysis of tweets from a Twitter stream API. The goal is to extract real-time information about events as they occur by using a combination of technologies such as Elasticsearch, Angular, Python, and FastAPI.
+This project is aimed at conducting a spatio-temporal analysis of tweets from a Twitter stream API. The goal is to extract real-time information about events as they occur by using a combination of technologies such as Elasticsearch, Angular, Python, and FastAPI.   
 
 ## Getting Started
 To get started with the project, you will need to create a [Twitter developer account](https://developer.twitter.com/) and generate the necessary access keys to collect tweets from the Twitter stream API.
